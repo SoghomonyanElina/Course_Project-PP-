@@ -17,6 +17,7 @@ class Tokenizer {
       std::string _value;
     };
     SToken currentToken;
+    SToken previousToken;
     Tokenizer(const std::string& cmd) : m_cmd(cmd) {};
     SToken& GetToken();
   private: 

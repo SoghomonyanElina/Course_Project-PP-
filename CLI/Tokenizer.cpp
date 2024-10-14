@@ -1,20 +1,26 @@
 #include "Tokenizer.h"
 
 bool Tokenizer::isWord(const std::string& token) {
-    return !token.empty() && !hasPrecedingSpace(m_cmd, token) && std::all_of(token.begin(), token.end(), [](unsigned char it) {
+    bool result = !token.empty() && std::all_of(token.begin(), token.end(), [](unsigned char it) {
         return std::isalpha(it);
-    });
+      });
+    return result;
 }
 
 bool Tokenizer::isOption(const std::string& token) {
-    return token.size() > 1 && token[0] == '-' && isWord(token.substr(1));
+    bool result = token[0] == '-' && token.size() > 1 && isWord(token.substr(1));
+    return result;
 }
 
 bool Tokenizer::isValue(const std::string& token) {
-    return isNumber(token) || (hasPrecedingSpace(m_cmd, token) && isWord(token));
+    bool result = isNumber(token) || (hasPrecedingSpace(m_cmd, token) && isWord(token) && isOption(previousToken._value));
+    return result;
 }
 
 bool Tokenizer::isNumber(const std::string& token) {
+    if(token[0] == '-') {
+        return false;
+    }
     //for double
     double digit;
     std::istringstream _token(token);
@@ -48,15 +54,19 @@ bool Tokenizer::isEnd(const std::stringstream& cmd) {
 
 Tokenizer::SToken& Tokenizer::GetToken() {
     std::string command_;
+    previousToken = currentToken;
     if(m_cmd >> command_) {
-        if(isWord(command_)) {
+        if(isValue(command_)) {
+            currentToken._type = SToken::EType::Value;
+            std::cout << "Recognized as Value: " << command_ << std::endl;
+        }
+        else if(isWord(command_)) {
             currentToken._type = SToken::EType::Word;
+            std::cout << "Recognized as Word: " << command_ << std::endl;
         }
         else if(isOption(command_)) {
             currentToken._type = SToken::EType::Option;
-        }
-        else if(isValue(command_)) {
-            currentToken._type = SToken::EType::Value;
+            std::cout << "Recognized as Option: " << command_ << std::endl;
         }
         else {
             if(isEnd(m_cmd)) {

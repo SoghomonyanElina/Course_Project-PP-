@@ -13,7 +13,7 @@ bool Tokenizer::isOption(const std::string& token) {
 }
 
 bool Tokenizer::isValue(const std::string& token) {
-    bool result = isNumber(token) || (hasPrecedingSpace(m_cmd, token) && isWord(token) && isOption(previousToken._value));
+    bool result = isNumber(token) || (hasPrecedingSpace(token) && isWord(token) && isOption(previousToken._value));
     return result;
 }
 
@@ -38,8 +38,8 @@ bool Tokenizer::isNumber(const std::string& token) {
     return false;
 }
 
-bool Tokenizer::hasPrecedingSpace(const std::stringstream& m_cmd, const std::string& token) {
-    std::string command = m_cmd.str();
+bool Tokenizer::hasPrecedingSpace(/*const std::stringstream& m_cmd*/ const std::string& token) {
+    std::string command = cmd_.str();
     size_t position = command.find(token);
     if(position != std::string::npos && position > 0) {
         return command[position - 1] == ' ';
@@ -47,15 +47,15 @@ bool Tokenizer::hasPrecedingSpace(const std::stringstream& m_cmd, const std::str
     return false;
 }
 
-bool Tokenizer::isEnd(const std::stringstream& cmd) {
-    std::string command = cmd.str();
+bool Tokenizer::isEnd() {
+    std::string command = cmd_.str();
     return std::isspace(command[command.size() - 1]);
 }
 
 Tokenizer::SToken& Tokenizer::GetToken() {
     std::string command_;
     previousToken = currentToken;
-    if(m_cmd >> command_) {
+    if(cmd_ >> command_) {
         if(isValue(command_)) {
             currentToken._type = SToken::EType::Value;
             std::cout << "Recognized as Value: " << command_ << std::endl;
@@ -69,7 +69,7 @@ Tokenizer::SToken& Tokenizer::GetToken() {
             std::cout << "Recognized as Option: " << command_ << std::endl;
         }
         else {
-            if(isEnd(m_cmd)) {
+            if(isEnd()) {
                 currentToken._type = SToken::EType::End;
             }
         }

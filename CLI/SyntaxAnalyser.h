@@ -11,12 +11,10 @@ class SyntaxAnalyser {
         Finish,
         Error
     };
-      SyntaxAnalyser(Tokenizer* obj);
-      void ParseToken();
-    private:
-      Tokenizer* m_obj;
       State currentState;
-      State nextState;
+      std::vector<Tokenizer::SToken>& tokens_;
+      SyntaxAnalyser(std::vector<Tokenizer::SToken> tokens);
+      void CheckToken(const Tokenizer::SToken& token);
 };
 
 #endif //SYNTAX_ANALYSER_HPP

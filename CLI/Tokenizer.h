@@ -23,7 +23,7 @@ class Tokenizer {
   private: 
     std::stringstream& cmd_;
     bool isNumber(const std::string& token);
-    bool hasPrecedingSpace(/*const std::stringstream& m_cmd*/ const std::string& token);
+    bool hasPrecedingSpace(const std::string& token);
     bool isWord(const std::string& token);
     bool isOption(const std::string& token);
     bool isValue(const std::string& token);

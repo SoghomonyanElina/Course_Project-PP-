@@ -38,7 +38,7 @@ bool Tokenizer::isNumber(const std::string& token) {
     return false;
 }
 
-bool Tokenizer::hasPrecedingSpace(/*const std::stringstream& m_cmd*/ const std::string& token) {
+bool Tokenizer::hasPrecedingSpace(const std::string& token) {
     std::string command = cmd_.str();
     size_t position = command.find(token);
     if(position != std::string::npos && position > 0) {

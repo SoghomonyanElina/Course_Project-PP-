@@ -1,8 +1,8 @@
 #include "Parser.h"
 
-Parser::Parser(std::string& cmd) : m_cmd(cmd) {
+Parser::Parser(std::istream& cmd) : m_cmd(cmd) {
     tokenizer_ = std::make_unique<Tokenizer>(m_cmd);
-    analyser_ = std::make_unique<SyntaxAnalyser>(tokens);
+    analyser_ = std::make_unique<SyntaxAnalyser>();
     creator_ = std::make_unique<CommandCreator>();
 }
 

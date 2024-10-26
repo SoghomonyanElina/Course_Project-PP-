@@ -9,9 +9,9 @@
 
 class Parser {
     public:
-       std::stringstream m_cmd;
-       std::vector<Tokenizer::SToken> tokens;
-       Parser(std::string& cmd);
+       std::istream& m_cmd;
+       //std::vector<Tokenizer::SToken> tokens;
+       Parser(std::istream& cmd);
        ~Parser() = default;
        std::unique_ptr<ICommand> Parse();
     private:

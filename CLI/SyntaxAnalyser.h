@@ -12,8 +12,8 @@ class SyntaxAnalyser {
         Error
     };
       State currentState;
-      std::vector<Tokenizer::SToken>& tokens_;
-      SyntaxAnalyser(std::vector<Tokenizer::SToken> tokens);
+      //std::vector<Tokenizer::SToken>& tokens_;
+      SyntaxAnalyser(/*std::vector<Tokenizer::SToken> tokens*/);
       void CheckToken(const Tokenizer::SToken& token);
 };
 

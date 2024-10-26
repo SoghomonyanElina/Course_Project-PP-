@@ -18,10 +18,12 @@ class Tokenizer {
     };
     SToken currentToken;
     SToken previousToken;
-    Tokenizer(std::stringstream& cmd) : cmd_(cmd) {};
+    Tokenizer(std::istream& cmd) : cmd_(cmd) {}
     SToken& GetToken();
   private: 
-    std::stringstream& cmd_;
+    std::istream& cmd_;
+    std::string input;
+    std::istringstream inputStream;
     bool isNumber(const std::string& token);
     bool hasPrecedingSpace(const std::string& token);
     bool isWord(const std::string& token);

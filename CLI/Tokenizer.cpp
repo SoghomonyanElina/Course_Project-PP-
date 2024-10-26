@@ -39,23 +39,25 @@ bool Tokenizer::isNumber(const std::string& token) {
 }
 
 bool Tokenizer::hasPrecedingSpace(const std::string& token) {
-    std::string command = cmd_.str();
-    size_t position = command.find(token);
+    //std::string command = cmd_.str();
+    size_t position = input.find(token);
     if(position != std::string::npos && position > 0) {
-        return command[position - 1] == ' ';
+        return input[position - 1] == ' ';
     }
     return false;
 }
 
 bool Tokenizer::isEnd() {
-    std::string command = cmd_.str();
-    return std::isspace(command[command.size() - 1]);
+    //std::string command = cmd_.str();
+    return std::isspace(input[input.size() - 1]);
 }
 
 Tokenizer::SToken& Tokenizer::GetToken() {
     std::string command_;
+    std::istringstream stream(input);
+    inputStream.swap(stream);
     previousToken = currentToken;
-    if(cmd_ >> command_) {
+    if(inputStream >> command_) {
         if(isValue(command_)) {
             currentToken._type = SToken::EType::Value;
             std::cout << "Recognized as Value: " << command_ << std::endl;
@@ -80,5 +82,9 @@ Tokenizer::SToken& Tokenizer::GetToken() {
     currentToken._value = " ";
     return currentToken;
 }
+
+
+
+
 
 

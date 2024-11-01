@@ -22,14 +22,12 @@ class Tokenizer {
     SToken& GetToken();
   private: 
     std::istream& cmd_;
-    std::string input;
-    std::istringstream inputStream;
     bool isNumber(const std::string& token);
-    bool hasPrecedingSpace(const std::string& token);
+    //bool hasPrecedingSpace(const std::string& token);
     bool isWord(const std::string& token);
     bool isOption(const std::string& token);
     bool isValue(const std::string& token);
-    bool isEnd();
+    //bool isEnd();
 };
 
 #endif //TOKENIZER_HPP

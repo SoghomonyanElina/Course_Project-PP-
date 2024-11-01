@@ -4,20 +4,21 @@
 #include <vector>
 #include "Tokenizer.h"
 #include "SyntaxAnalyser.h"
-#include "ICommand.h"
-#include "CommandCreator.h"
+#include "SemanticAnalyser.h"
+#include "CommandFactory.h"
 
 class Parser {
-    public:
-       std::istream& m_cmd;
-       //std::vector<Tokenizer::SToken> tokens;
-       Parser(std::istream& cmd);
-       ~Parser() = default;
-       std::unique_ptr<ICommand> Parse();
-    private:
+   public:
+      std::istream& m_cmd;
+      std::unique_ptr<CommandFactory> factory_;
+      //std::vector<Tokenizer::SToken> tokens;
+      Parser(std::istream& cmd);
+      ~Parser() = default;
+      std::unique_ptr<ICommand> Parse();
+   private:
       std::unique_ptr<Tokenizer> tokenizer_;
       std::unique_ptr<SyntaxAnalyser> analyser_;
-      std::unique_ptr<CommandCreator> creator_;
+      std::unique_ptr<SemanticAnalyser> semanalyser_;
 };
 
 #endif //PARSER_HPP

@@ -3,7 +3,7 @@
 Parser::Parser(std::istream& cmd) : m_cmd(cmd) {
     tokenizer_ = std::make_unique<Tokenizer>(m_cmd);
     analyser_ = std::make_unique<SyntaxAnalyser>();
-    creator_ = std::make_unique<CommandCreator>();
+    factory_ = std::make_unique<CommandFactory>();
 }
 
 std::unique_ptr<ICommand> Parser::Parse() {
@@ -16,5 +16,4 @@ std::unique_ptr<ICommand> Parser::Parse() {
     if(analyser_->currentState != SyntaxAnalyser::State::Error) {
         analyser_->currentState = SyntaxAnalyser::State::Finish;
     }
-    return creator_->Create();
 }

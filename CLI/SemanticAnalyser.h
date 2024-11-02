@@ -3,6 +3,7 @@
 
 #include "SyntaxAnalyser.h"
 #include "ICommand.h"
+#include "CommandFactory.h"
 #include <exception>
 #include <map>
 #include <memory>
@@ -15,8 +16,9 @@ class SemanticAnalyser {
       SyntaxAnalyser::SCommand& command_;
       std::map<std::string, std::map<std::string, Args>> cmd;
       SemanticAnalyser(SyntaxAnalyser::SCommand& command);
-      //void CheckCommand();
-      std::unique_ptr<ICommand> CreateCommand();
+      bool CheckCommand();
+      int CmdNameSize();
+      //std::unique_ptr<ICommand> CreateCommand();
     private:
       bool isCmdName();
       bool isOption();

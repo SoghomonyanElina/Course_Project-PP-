@@ -12,15 +12,14 @@ class SyntaxAnalyser {
         Error
       };
       struct SCommand {
-        //std::vector<std::string> CmdName;
         std::string CmdName;
         std::vector<std::string> ArgList;
       };
       State currentState;
-      SCommand command;
-      //std::vector<Tokenizer::SToken>& tokens_;
-      SyntaxAnalyser(/*std::vector<Tokenizer::SToken> tokens*/);
+      SCommand command_;
+      SyntaxAnalyser();
       void CheckToken(const Tokenizer::SToken& token);
+      const SCommand& GetCommand();
 };
 
 #endif //SYNTAX_ANALYSER_HPP

@@ -11,7 +11,7 @@ class Parser {
    public:
       std::istream& m_cmd;
       std::unique_ptr<CommandFactory> factory_;
-      //std::vector<Tokenizer::SToken> tokens;
+      //SyntaxAnalyser::SCommand command;
       Parser(std::istream& cmd);
       ~Parser() = default;
       std::unique_ptr<ICommand> Parse();

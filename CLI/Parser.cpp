@@ -3,6 +3,7 @@
 Parser::Parser(std::istream& cmd) : m_cmd(cmd) {
     tokenizer_ = std::make_unique<Tokenizer>(m_cmd);
     analyser_ = std::make_unique<SyntaxAnalyser>();
+    semanalyser_ = std::make_unique<SemanticAnalyser>(analyser_->GetCommand());
     factory_ = std::make_unique<CommandFactory>();
 }
 
@@ -16,4 +17,5 @@ std::unique_ptr<ICommand> Parser::Parse() {
     if(analyser_->currentState != SyntaxAnalyser::State::Error) {
         analyser_->currentState = SyntaxAnalyser::State::Finish;
     }
+    return semanalyser_->CreateCommand();
 }

@@ -59,7 +59,7 @@ Tokenizer::SToken& Tokenizer::GetToken() {
     if(cmd_ >> command_) {
         if(isValue(command_)) {
             currentToken._type = SToken::EType::Value;
-            //std::cout << "Recognised as Value: " << command_ << std::endl;
+            //std::cout << "Recognized as Value: " << command_ << std::endl;
         }
         else if(isWord(command_)) {
             currentToken._type = SToken::EType::Word;

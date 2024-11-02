@@ -3,8 +3,8 @@
 
 class ICommand {
     public:
-      std::string cmd_name;
-      std::vector<std::string> Args;
+      //std::string cmd_name;
+      //std::vector<std::string> Args;
       virtual void execute() = 0;
 };
 

@@ -19,7 +19,9 @@ SemanticAnalyser::SemanticAnalyser(SyntaxAnalyser::SCommand& command) : command_
             {"-color", std::string{}}
         }},
         {"exit", {}},
-        {"help", {}}
+        {"help", {}},
+        {"undo", {}},
+        {"redo", {}}
     };
 }
 
@@ -41,7 +43,7 @@ bool SemanticAnalyser::isOption() {
             ++arg;
         }
         if(command_.ArgList[arg][0] == '-' && option.first != command_.ArgList[arg]) {
-            std::cerr << "Ivalid option" << std::endl;
+            std::cerr << "Invalid option" << std::endl;
             return false;
         }
         ++arg;
@@ -69,6 +71,68 @@ bool SemanticAnalyser::isColor() {
         }
     }
     std::cerr << "Invalid color name" << std::endl;
+    return false;
+}
+
+bool SemanticAnalyser::isCmdSingle() {
+    return command_.CmdName.find(' ') == std::string::npos;
+}
+
+bool SemanticAnalyser::CheckPosition() {
+    for(int arg = 0; arg < command_.ArgList.size(); ++arg) {
+        if(command_.ArgList[arg] == "-pos") {
+            if(arg + 2 >= command_.ArgList.size()) {
+                std::cerr << "Option '-pos' requires two arguments" << std::endl;
+                return false;
+            }
+            try {
+                float pos_1 = std::stof(command_.ArgList[arg + 1]);
+                float pos_2 = std::stof(command_.ArgList[arg + 2]);
+                return true;
+            }
+            catch(const std::exception&) {
+                std::cerr << "Invalid position values" << std::endl;
+                return false;
+            }
+        }
+    }
+    std::cerr << "Option -pos not found" << std::endl;
+    return false;
+}
+
+bool SemanticAnalyser::CheckID() {
+    for(int arg = 0; arg < command_.ArgList.size(); ++arg) {
+        if(command_.ArgList[arg] == "-id") {
+            if(arg + 1 >= command_.ArgList.size()) {
+                std::cerr << "Option '-id' requires one argument" << std::endl;
+                return false;
+            }
+            try {
+                int id = stoi(command_.ArgList[arg + 1]);
+                return true;
+            }
+            catch(const std::exception&) {
+                std::cerr << "Invalid ID value" << std::endl;
+                return false;
+            }
+        }
+    }
+    std::cerr << "Opton -id not found" << std::endl;
+    return false;
+}
+
+bool SemanticAnalyser::CheckCommand() {
+    if(isCmdName() && isCmdSingle()) { 
+        return true;
+    }
+    if (isCmdName() && isOption()) {
+        if(command_.CmdName =="add shape" || "remove shape") {
+            return (isShape() && CheckPosition() && isColor());
+        }
+        if(command_.CmdName == "add slide" || "remove slide") {
+            return (CheckID());
+        }
+    }
     return false;
 }
 

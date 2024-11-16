@@ -12,7 +12,7 @@ void SyntaxAnalyser::CheckToken(const Tokenizer::SToken& token) {
     case State::Start:
       if(token._type == Tokenizer::SToken::EType::Word) {
         currentState = State::Command;
-        command_.CmdName += token._value + ' ';
+        command_.CmdName += token._value;
         std::cout << "Pushed_name" << std::endl;
       }
       else {
@@ -22,7 +22,7 @@ void SyntaxAnalyser::CheckToken(const Tokenizer::SToken& token) {
     case State::Command:
       if(token._type == Tokenizer::SToken::EType::Word) {
         currentState = State::Command;
-        command_.CmdName += token._value;
+        command_.CmdName += ' ' + token._value;
         std::cout << "Pushed_name" << std::endl;
       } 
       else if(token._type == Tokenizer::SToken::EType::Option) {

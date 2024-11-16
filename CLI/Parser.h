@@ -9,16 +9,15 @@
 
 class Parser {
    public:
-      std::istream& m_cmd;
-      std::unique_ptr<CommandFactory> factory_;
-      //SyntaxAnalyser::SCommand command;
       Parser(std::istream& cmd);
       ~Parser() = default;
       std::unique_ptr<ICommand> Parse();
    private:
+      std::istream& m_cmd;
       std::unique_ptr<Tokenizer> tokenizer_;
       std::unique_ptr<SyntaxAnalyser> analyser_;
       std::unique_ptr<SemanticAnalyser> semanalyser_;
+      std::unique_ptr<CommandFactory> factory_;
 };
 
 #endif //PARSER_HPP

@@ -5,12 +5,16 @@
 
 class Editor {
     public:
+      static Editor& getInstance();
       void process(std::shared_ptr<IAction> action);
-      void undo();
-      void redo();
+      std::shared_ptr<IAction> undo();
+      std::shared_ptr<IAction> redo();
     private:
+      Editor() = default;
+      Editor(const Editor& other) = delete;
+      Editor& operator=(const Editor& other) = delete;
       std::stack<std::shared_ptr<IAction>> stack_undo;
-       std::stack<std::shared_ptr<IAction>> stack_redo;
+      std::stack<std::shared_ptr<IAction>> stack_redo;
 };
 
 #endif //EDITOR_HPP

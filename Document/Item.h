@@ -9,11 +9,11 @@
 class Item {
     public:
       Item() = default;
-      void SetGeometry(Geometry& geometry);
+      void SetGeometry(const Geometry& geometry);
       Geometry& GetGeometry();
-      void SetAttribute(Attribute& attribute);
+      void SetAttribute(const Attribute& attribute);
       Attribute& GetAttribute();
-      void SetType(Type& type);
+      void SetType(const Type& type);
       Type& GetType();
     private:
       Attribute attribute_;

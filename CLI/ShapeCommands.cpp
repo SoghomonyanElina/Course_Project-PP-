@@ -27,7 +27,7 @@ AddShapeCommand::AddShapeCommand(std::vector<std::string>& args, std::shared_ptr
 void AddShapeCommand::execute() {
     std::shared_ptr<Item> newItem = std::make_shared<Item>();
     std::shared_ptr<IAction> action = std::make_shared<AddShapeAction>(newItem, geometry, attribute, type);
-    editor_->process(action);
+    Editor::process;
 }
 
 RemoveShapeCommand::RemoveShapeCommand(std::vector<std::string>& args, std::shared_ptr<Editor> editor) : editor_(editor) {

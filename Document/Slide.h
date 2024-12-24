@@ -9,8 +9,9 @@ class Slide {
       Slide() = default;
       void addItem();
       std::shared_ptr<Item> GetItem();
-    private:
       std::shared_ptr<Item> item;
+      int id;
+    private:
       std::vector<std::shared_ptr<Item>> items;
 };
 

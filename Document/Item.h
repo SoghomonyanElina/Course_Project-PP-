@@ -15,7 +15,6 @@ class Item {
       Attribute& GetAttribute();
       void SetType(const Type& type);
       Type& GetType();
-    private:
       Attribute attribute_;
       Geometry geometry_;
       Type type_;

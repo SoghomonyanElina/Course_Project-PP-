@@ -4,11 +4,10 @@
 
 class Controller {
     public:
-      Controller();
+      Controller() = default;
       void Start();
     private:
       std::unique_ptr<Parser> parser;
-    // I will continue.
 };
 
 #endif //CONTROLLER_HPP

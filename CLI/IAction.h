@@ -1,8 +1,9 @@
 #ifndef IACTION_HPP
 #define IACTION_HPP
 
-#include <memory>
+#include "../Application/Application.h"
 #include "../Document/Document.h"
+#include <memory>
 
 class IAction {
     public:
@@ -12,30 +13,32 @@ class IAction {
 
 class AddShapeAction : public IAction {
     private:
-      std::shared_ptr<Slide> mp_slide;
+      std::shared_ptr<Slide> mpSlide;
     public:
       std::shared_ptr<IAction> Do() override;
 };
 
 class RemoveShape : public IAction {
     private:
-      std::shared_ptr<Slide> mp_slide;
+      std::shared_ptr<Slide> mpSlide;
     public:
-     std::shared_ptr<IAction> Do() override;
+      std::shared_ptr<IAction> Do() override;
 };
 
 class AddSlideAction : public IAction {
     private:
-      std::shared_ptr<Slide> mp_slide;
+      std::shared_ptr<Slide> mpSlide;
     public:
-     std::shared_ptr<IAction> Do() override;
+      AddSlideAction(std::shared_ptr<Slide> slide);
+      std::shared_ptr<IAction> Do() override;
 };
 
 class RemoveSlideAction : public IAction {
     private:
-      std::shared_ptr<Slide> mp_slide;
+      std::shared_ptr<Slide> mpSlide;
     public:
-     std::shared_ptr<IAction> Do() override;
+      RemoveSlideAction(std::shared_ptr<Slide> slide);
+      std::shared_ptr<IAction> Do() override;
 };
 
 #endif //IACTION_HPP
